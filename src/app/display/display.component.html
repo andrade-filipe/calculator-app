@@ -1,0 +1,15 @@
+<div class="display__container | container text-center">
+    <div class="display__row center | row align-items-center">
+        <!-- <input
+                #displayBox
+                type="text"
+                id="display-box"
+                [innerText]="expression"
+                (input)="buildExpression(displayBox.value)"
+                class="display-info bottom-right"
+            /> -->
+        <div class="display-info bottom-right">
+            {{ expression$ | async }}
+        </div>
+    </div>
+</div>

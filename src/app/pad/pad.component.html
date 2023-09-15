@@ -1,0 +1,80 @@
+<div class="pad__container | container text-center center">
+    <div class="pad__row | row align-items-center">
+        <div class="pad__row-first | row">
+            <div class="col">
+                <button
+
+                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    (
+                </button>
+                <button
+                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    )
+                </button>
+                <button
+                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    %
+                </button>
+                <button
+                    (click)="clearExpression()"
+                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    clear
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button class="pad__button | btn btn-outline-light">7</button>
+                <button class="pad__button | btn btn-outline-light">8</button>
+                <button class="pad__button | btn btn-outline-light">9</button>
+                <button
+                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    /
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button class="pad__button | btn btn-outline-light">4</button>
+                <button class="pad__button | btn btn-outline-light">5</button>
+                <button class="pad__button | btn btn-outline-light">6</button>
+                <button
+                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    X
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button (click)="buildExpression('1')" class="pad__button | btn btn-outline-light">1</button>
+                <button (click)="buildExpression('2')" class="pad__button | btn btn-outline-light">2</button>
+                <button (click)="buildExpression('3')" class="pad__button | btn btn-outline-light">3</button>
+                <button
+                (click)="buildExpression('-')"
+                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    -
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <button (click)="buildExpression('0')" class="pad__button | btn btn-outline-light">0</button>
+                <button (click)="buildExpression('.')" class="pad__button | btn btn-outline-light">.</button>
+                <button
+                    (click)="solveExpression()"
+                    class="pad__button pad__button--operator-equal | btn btn-outline-light">
+                    =
+                </button>
+                <button
+                (click)="buildExpression('+')"
+                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    +
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
