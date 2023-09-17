@@ -4,8 +4,10 @@ import { CalculatorService } from '../services/calculator-service/calculator.ser
 import {
     Observable,
     distinctUntilChanged,
+    empty,
     map,
     repeat,
+    switchMap,
 } from 'rxjs';
 
 @Component({
@@ -23,7 +25,8 @@ export class DisplayComponent implements OnInit {
     }
 
     getExpression(): void {
-        this.expression$ = this.calculatorService.expression$.pipe(
+        this.expression$ = this.calculatorService.expression$
+        .pipe(
             distinctUntilChanged((prev, curr) => prev.data.expression === curr.data.expression),
             map(response => {
                 return response.data.expression
