@@ -11,13 +11,14 @@ export class PadComponent {
   constructor(private calculatorService: CalculatorService) {}
 
   buildExpression(expression: string): void {
+    this.calculatorService.build$(expression).subscribe()
   }
 
   solveExpression() {
-      this.calculatorService.solve$.subscribe();
+    this.calculatorService.solve$.subscribe()
   }
 
   clearExpression(){
-      this.calculatorService.clear$.subscribe();
+    this.calculatorService.clear$.subscribe()
   }
 }

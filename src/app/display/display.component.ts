@@ -13,16 +13,18 @@ import { CustomResponse } from '../interfaces/custom-response';
     styleUrls: ['./display.component.css'],
 })
 export class DisplayComponent implements OnInit {
-    displayExpression$ !: Observable<CustomResponse>;
+    expression$ !: Observable<string | undefined>;
 
     constructor(private calculatorService: CalculatorService) {}
 
     ngOnInit(): void {
-        this.displayExpression$ = this.calculatorService
+        this.expression$ = this.calculatorService
         .expression$
         .pipe(
             distinctUntilChanged(),
-            map((value) => value)
-        );
+            map(response => {
+                return response.data.expression
+            }
+        ));
     }
 }
