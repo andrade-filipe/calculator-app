@@ -49,11 +49,10 @@
 
         <div class="row">
             <div class="col">
-                <button (click)="buildExpression('1')" class="pad__button | btn btn-outline-light">1</button>
-                <button (click)="buildExpression('2')" class="pad__button | btn btn-outline-light">2</button>
-                <button (click)="buildExpression('3')" class="pad__button | btn btn-outline-light">3</button>
+                <button class="pad__button | btn btn-outline-light">1</button>
+                <button class="pad__button | btn btn-outline-light">2</button>
+                <button class="pad__button | btn btn-outline-light">3</button>
                 <button
-                (click)="buildExpression('-')"
                     class="pad__button pad__button--operator | btn btn-outline-light">
                     -
                 </button>
@@ -62,15 +61,14 @@
 
         <div class="row">
             <div class="col">
-                <button (click)="buildExpression('0')" class="pad__button | btn btn-outline-light">0</button>
-                <button (click)="buildExpression('.')" class="pad__button | btn btn-outline-light">.</button>
+                <button class="pad__button | btn btn-outline-light">0</button>
+                <button class="pad__button | btn btn-outline-light">.</button>
                 <button
                     (click)="solveExpression()"
                     class="pad__button pad__button--operator-equal | btn btn-outline-light">
                     =
                 </button>
                 <button
-                (click)="buildExpression('+')"
                     class="pad__button pad__button--operator | btn btn-outline-light">
                     +
                 </button>

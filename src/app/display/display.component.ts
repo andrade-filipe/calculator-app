@@ -1,15 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
 import {
-    Subject,
     Observable,
-    debounceTime,
     distinctUntilChanged,
-    switchMap,
     map,
-    observeOn,
-    Subscription,
 } from 'rxjs';
+import { CustomResponse } from '../interfaces/custom-response';
 
 @Component({
     selector: 'app-display',
@@ -17,14 +13,16 @@ import {
     styleUrls: ['./display.component.css'],
 })
 export class DisplayComponent implements OnInit {
-    expression$!: Observable<string>;
+    displayExpression$ !: Observable<CustomResponse>;
 
     constructor(private calculatorService: CalculatorService) {}
 
     ngOnInit(): void {
-        this.expression$ = this.calculatorService.getExpression().pipe(
+        this.displayExpression$ = this.calculatorService
+        .expression$
+        .pipe(
             distinctUntilChanged(),
-            map((value) => value.toString())
+            map((value) => value)
         );
     }
 }
