@@ -4,6 +4,7 @@ import { Observable, catchError, distinctUntilChanged, of, repeat, shareReplay, 
 import { AppConfig } from 'src/app/app-config/app-config.interface';
 import { APP_SERVICE_CONFIG } from 'src/app/app-config/app-config.service';
 import { CustomResponse } from 'src/app/interfaces/custom-response';
+import { Expression } from 'src/app/interfaces/expression';
 
 @Injectable({
     providedIn: 'root',
@@ -32,7 +33,7 @@ export class CalculatorService {
                 catchError(this.handleError))
     );
 
-    build$ = (expression: string) =>
+    build$ = (expression: Expression) =>
         <Observable<CustomResponse>>(
             this.http
                 .post<CustomResponse>(`${this.API_URL}/build`, expression)

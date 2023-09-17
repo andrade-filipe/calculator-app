@@ -3,14 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
 import {
     Observable,
-    Subscription,
     distinctUntilChanged,
     map,
-    mergeMap,
-    of,
     repeat,
-    switchMap,
-    tap,
 } from 'rxjs';
 
 @Component({
@@ -27,26 +22,12 @@ export class DisplayComponent implements OnInit {
         this.getExpression();
     }
 
-    // getExpression(): void{
-    //     this.expression$ = this.calculatorService
-    //     .expression$
-    //     .pipe(
-    //         map(response => {
-    //             return response.data.expression
-    //         })
-    //         );
-    //     };
-
     getExpression(): void {
         this.expression$ = this.calculatorService.expression$.pipe(
-            distinctUntilChanged(
-                (prev, curr) => prev.data.expression == curr.data.expression
-            ),
-            switchMap(
-                async (response) => (
-                    console.log('switchmap call'), response.data.expression
-                )
-            ),
+            distinctUntilChanged((prev, curr) => prev.data.expression === curr.data.expression),
+            map(response => {
+                return response.data.expression
+            }),
             repeat()
         );
     }

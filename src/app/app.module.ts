@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { APP_CONFIG, APP_SERVICE_CONFIG } from './app-config/app-config.service';
 import { FormsModule } from '@angular/forms';
 import { CalculatorComponent } from './calculator/calculator.component';
-import { MessagesComponent } from './messages/messages.component';
 import { PadComponent } from './pad/pad.component';
 import { DisplayComponent } from './display/display.component';
 
@@ -15,7 +14,6 @@ import { DisplayComponent } from './display/display.component';
   declarations: [
     AppComponent,
     CalculatorComponent,
-    MessagesComponent,
     PadComponent,
     DisplayComponent
   ],

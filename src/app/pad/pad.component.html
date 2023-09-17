@@ -3,20 +3,27 @@
         <div class="pad__row-first | row">
             <div class="col">
                 <button
-
-                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    (click)="expressionParser('parenthesis_right')"
+                    class="pad__button pad__button--operator | btn btn-outline-light"
+                >
                     (
                 </button>
                 <button
-                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    (click)="expressionParser('parenthesis_left')"
+                    class="pad__button pad__button--operator | btn btn-outline-light"
+                >
                     )
                 </button>
                 <button
-                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    (click)="expressionParser('percentage')"
+                    class="pad__button pad__button--operator | btn btn-outline-light"
+                >
                     %
                 </button>
                 <button
-                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    (click)="clearExpression()"
+                    class="pad__button pad__button--operator | btn btn-outline-light"
+                >
                     clear
                 </button>
             </div>
@@ -24,11 +31,28 @@
 
         <div class="row">
             <div class="col">
-                <button class="pad__button | btn btn-outline-light">7</button>
-                <button class="pad__button | btn btn-outline-light">8</button>
-                <button class="pad__button | btn btn-outline-light">9</button>
                 <button
-                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    (click)="expressionParser('number_seven')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    7
+                </button>
+                <button
+                    (click)="expressionParser('number_eight')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    8
+                </button>
+                <button
+                    (click)="expressionParser('number_nine')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    9
+                </button>
+                <button
+                    (click)="expressionParser('divide')"
+                    class="pad__button pad__button--operator | btn btn-outline-light"
+                >
                     /
                 </button>
             </div>
@@ -36,11 +60,28 @@
 
         <div class="row">
             <div class="col">
-                <button class="pad__button | btn btn-outline-light">4</button>
-                <button class="pad__button | btn btn-outline-light">5</button>
-                <button class="pad__button | btn btn-outline-light">6</button>
                 <button
-                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    (click)="expressionParser('number_four')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    4
+                </button>
+                <button
+                    (click)="expressionParser('number_five')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    5
+                </button>
+                <button
+                    (click)="expressionParser('number_six')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    6
+                </button>
+                <button
+                    (click)="expressionParser('multiply')"
+                    class="pad__button pad__button--operator | btn btn-outline-light"
+                >
                     X
                 </button>
             </div>
@@ -48,11 +89,28 @@
 
         <div class="row">
             <div class="col">
-                <button (click)="buildExpression('1')" class="pad__button | btn btn-outline-light">1</button>
-                <button class="pad__button | btn btn-outline-light">2</button>
-                <button class="pad__button | btn btn-outline-light">3</button>
                 <button
-                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    (click)="expressionParser('number_one')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    1
+                </button>
+                <button
+                    (click)="expressionParser('number_two')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    2
+                </button>
+                <button
+                    (click)="expressionParser('number_three')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    3
+                </button>
+                <button
+                    (click)="expressionParser('subtract')"
+                    class="pad__button pad__button--operator | btn btn-outline-light"
+                >
                     -
                 </button>
             </div>
@@ -60,14 +118,28 @@
 
         <div class="row">
             <div class="col">
-                <button class="pad__button | btn btn-outline-light">0</button>
-                <button class="pad__button | btn btn-outline-light">.</button>
                 <button
-                    class="pad__button pad__button--operator-equal | btn btn-outline-light">
+                    (click)="expressionParser('number_zero')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    0
+                </button>
+                <button
+                    (click)="expressionParser('dot')"
+                    class="pad__button | btn btn-outline-light"
+                >
+                    .
+                </button>
+                <button
+                    (click)="solveExpression()"
+                    class="pad__button pad__button--operator-equal | btn btn-outline-light"
+                >
                     =
                 </button>
                 <button
-                    class="pad__button pad__button--operator | btn btn-outline-light">
+                    (click)="expressionParser('add')"
+                    class="pad__button pad__button--operator | btn btn-outline-light"
+                >
                     +
                 </button>
             </div>
