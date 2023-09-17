@@ -4,5 +4,5 @@ export interface CustomResponse {
     status?: string;
     reason?: string;
     message?: string;
-    data: {expression ?: string}
+    data: { expression?: string };
 }

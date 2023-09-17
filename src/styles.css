@@ -122,9 +122,9 @@ PAD
     font-size: var(--fs-normal);
 }
 
-.pad__button:hover{
+.pad__button:hover {
     background-color: var(--clr-complement);
-    color: var(--clr-accent)
+    color: var(--clr-accent);
 }
 
 .pad__button--operator {
@@ -134,7 +134,7 @@ PAD
 
 .pad__button--operator:hover {
     background-color: var(--clr-accent);
-    color: var(--clr-primary)
+    color: var(--clr-primary);
 }
 
 .pad__button--operator-equal {
@@ -173,4 +173,3 @@ DISPLAY
     min-width: 29rem;
     min-height: 4rem;
 }
-

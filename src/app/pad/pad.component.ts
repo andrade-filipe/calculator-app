@@ -33,7 +33,7 @@ export class PadComponent {
     constructor(private calculatorService: CalculatorService) {}
 
     expressionParser(digit: string): void {
-        this.expression = { expression : this.padDigits.get(digit) };
+        this.expression = { expression: this.padDigits.get(digit) };
         this.buildExpression(this.expression);
     }
 

@@ -6,27 +6,29 @@ import { DataState } from './enums/data-state.enum';
 import { CalculatorService } from './services/calculator-service/calculator.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-    appState$ !: Observable<AppState<CustomResponse>>;
+    title = 'calculator-app';
+
+    appState$!: Observable<AppState<CustomResponse>>;
 
     constructor(private calculatorService: CalculatorService) {}
 
     ngOnInit(): void {
-        this.appState$ = this.calculatorService.expression$
-        .pipe(
-            map(response => {
+        this.appState$ = this.calculatorService.expression$.pipe(
+            map((response) => {
                 return {
                     dataState: DataState.LOADED_STATE,
-                    appData: response }
+                    appData: response,
+                };
             }),
             startWith({ dataState: DataState.LOADING_STATE }),
             catchError((error: string) => {
-                return of({dataState: DataState.ERROR_STATE, error })
+                return of({ dataState: DataState.ERROR_STATE, error });
             })
-        )
+        );
     }
 }

@@ -2,10 +2,10 @@ import { CalculatorService } from './../../../.history/src/app/services/calculat
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-calculator',
-  templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.css']
+    selector: 'app-calculator',
+    templateUrl: './calculator.component.html',
+    styleUrls: ['./calculator.component.css'],
 })
 export class CalculatorComponent {
-  constructor(private CalculatorService: CalculatorService) {}
+    constructor(private CalculatorService: CalculatorService) {}
 }
