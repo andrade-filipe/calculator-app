@@ -1,6 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    OnInit,
+} from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
-import { Observable, distinctUntilChanged, map, repeat } from 'rxjs';
+import {
+    Observable,
+    map,
+} from 'rxjs';
 
 @Component({
     selector: 'app-display',
@@ -8,23 +15,20 @@ import { Observable, distinctUntilChanged, map, repeat } from 'rxjs';
     styleUrls: ['./display.component.css'],
 })
 export class DisplayComponent implements OnInit {
-    expression$!: Observable<string | undefined>;
+
+    expression$ !: Observable<string | undefined>
 
     constructor(private calculatorService: CalculatorService) {}
 
     ngOnInit(): void {
-        this.getExpression();
+        this.getExpression()
     }
 
-    getExpression(): void {
+    getExpression() {
         this.expression$ = this.calculatorService.expression$.pipe(
-            distinctUntilChanged(
-                (prev, curr) => prev.data.expression === curr.data.expression
-            ),
-            map((response) => {
-                return response.data.expression;
-            }),
-            repeat()
+            map((expression) => {
+                return expression.data.expression
+            })
         );
     }
 }

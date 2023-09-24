@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { AppState } from './interfaces/app-state';
 import { CustomResponse } from './interfaces/custom-response';
 import { Observable, catchError, startWith, of, map } from 'rxjs';

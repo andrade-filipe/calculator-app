@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
 import { Expression } from '../interfaces/expression';
 
@@ -30,6 +30,7 @@ export class PadComponent {
         ['number_nine', '9'],
         ['number_zero', '0'],
     ]);
+
     constructor(private calculatorService: CalculatorService) {}
 
     expressionParser(digit: string): void {
