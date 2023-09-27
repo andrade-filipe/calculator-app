@@ -1,5 +1,6 @@
-import { CalculatorService } from './../../../.history/src/app/services/calculator-service/calculator.service_20230910163110';
+import { CalculatorService } from '../services/calculator-service/calculator.service'
 import { Component } from '@angular/core';
+import { CustomResponse } from '../interfaces/custom-response';
 
 @Component({
     selector: 'app-calculator',
@@ -8,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class CalculatorComponent {
     constructor(private CalculatorService: CalculatorService) {}
+
+    refresh !: CustomResponse
+
+    refreshDisplay(event: CustomResponse) {
+        this.refresh = event
+    }
 }

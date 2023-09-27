@@ -4,7 +4,7 @@ import {
     HttpHeaders,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import { Observable, catchError, shareReplay, tap, throwError } from 'rxjs';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { AppConfig } from 'src/app/app-config/app-config.interface';
 import { APP_SERVICE_CONFIG } from 'src/app/app-config/app-config.service';
 import { CustomResponse } from 'src/app/interfaces/custom-response';
@@ -32,8 +32,7 @@ export class CalculatorService {
             .get<CustomResponse>(`${this.API_URL}/expression`)
             .pipe(
                 tap(console.log),
-                catchError(this.handleError),
-                shareReplay(1)
+                catchError(this.handleError)
             )
     );
 
@@ -43,8 +42,7 @@ export class CalculatorService {
                 .post<CustomResponse>(`${this.API_URL}/build`, expression)
                 .pipe(
                     tap(console.log),
-                    catchError(this.handleError),
-                    shareReplay(1)
+                    catchError(this.handleError)
                 )
         );
 
@@ -53,8 +51,7 @@ export class CalculatorService {
             .get<CustomResponse>(`${this.API_URL}/solve`)
             .pipe(
                 tap(console.log),
-                catchError(this.handleError),
-                shareReplay(1)
+                catchError(this.handleError)
             )
     );
 
@@ -63,8 +60,7 @@ export class CalculatorService {
             .get<CustomResponse>(`${this.API_URL}/clear`)
             .pipe(
                 tap(console.log),
-                catchError(this.handleError),
-                shareReplay(1)
+                catchError(this.handleError)
             )
     );
 

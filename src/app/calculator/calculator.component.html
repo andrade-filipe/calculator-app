@@ -1,8 +1,8 @@
 <div class="container text-center">
     <div class="row">
-        <app-display></app-display>
+        <app-display [refreshDisplay]="refresh"></app-display>
     </div>
     <div class="row">
-        <app-pad></app-pad>
+        <app-pad (clicked)="refreshDisplay($event)" ></app-pad>
     </div>
 </div>
