@@ -32,12 +32,12 @@ Observation: the event emitted makes the display refresh, showing to the user th
 ### 4.AppComponent
 This is the defaut component that angular creates, in my application i only need him to do a "loading screen", it's between quotation marks because there's actually no screen, but the application sucessfully displays the current state with a json on the top of the screen, what can be attached to a component later, providing a loading screen.
 
-##Service
+## Service
 
 ### Calculator Service
 This is what makes all the communication with the API, i opted to make a Reactive aproach using variables with pipe from RxJS.
 
-##Other
+## Other
 
 ### data-state.enum.ts, app-state.ts(interface)
 created to help displying the current data loading state
