@@ -2,7 +2,8 @@
 This is the Front-end for my Calculator Project, the back-end is in: https://github.com/andrade-filipe/calculator-back-end
 
 Front-end is made with Angular and has 4 main components
-##Components
+
+## Components
 ### 1. Calculator Component
 This component is used to organize the others, also is the parent for the other components, wich means that will use it to pass data with @Input and @Output decorators
 
