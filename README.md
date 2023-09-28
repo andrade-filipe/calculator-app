@@ -29,4 +29,4 @@ clearExpression(): makes a request to the API calling a method that restarts the
 Observation: the event emitted makes the display refresh, showing to the user the expression he is building
 
 ## 4.AppComponent
-This is the defaut component that angular creates, in my application i only need him to do a "loading screen", it's between quotation marks because there's actually no screen, but the application sucessfully displays the current state with a json on the top of the screen
+This is the defaut component that angular creates, in my application i only need him to do a "loading screen", it's between quotation marks because there's actually no screen, but the application sucessfully displays the current state with a json on the top of the screen, what can be attached to a component later, providing a loading screen.
