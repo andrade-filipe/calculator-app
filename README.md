@@ -23,7 +23,7 @@ Component created to map the keyboard of my calculator and send consistent value
 
 Has 5 methods:
 ngOnInit(): Calls the clearExpression method on inicialization to make sure that the expected value will be displayed (zero) <br>
-expressionParser(): makes the communication with the HTML, giving to the buildExpression method the right values <br>
+expressionParser(): makes the communication with the HTML, giving to the buildExpression method the right values
 buildExpression(): makes a post request with the respective value of the button the user clicked and emits an event to the CalculatorComponent <br>
 solveExpression(): makes a request to the API calling a method that solves the expression the user has written and emits an event to the CalculatorComponent <br>
 clearExpression(): makes a request to the API calling a method that restarts the display and emits an event to the CalculatorComponent <br>
