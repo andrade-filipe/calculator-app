@@ -1,6 +1,7 @@
 # CalculatorApp - Front-End
 This is the Front-end for my Calculator Project, the back-end is in: https://github.com/andrade-filipe/calculator-back-end
-Front-end is made with Angular and has 3 components
+
+Front-end is made with Angular and has 4 main components
 ## 1. Calculator Component
 This component is used to organize the others, also is the parent for the other components, wich means that will use it to pass data with @Input and @Output decorators
 
@@ -27,3 +28,5 @@ clearExpression(): makes a request to the API calling a method that restarts the
 
 Observation: the event emitted makes the display refresh, showing to the user the expression he is building
 
+## 4.AppComponent
+This is the defaut component that angular creates, in my application i only need him to do a "loading screen", it's between quotation marks because there's actually no screen, but the application sucessfully displays the current state with a json on the top of the screen
