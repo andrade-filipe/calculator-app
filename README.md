@@ -11,12 +11,12 @@ Has a method called refreshDisplay that captures an event from PadComponent and 
 Variable "refresh" it's what the method updates
 
 ### 2. Display Component
-Component created to GET the mathematical expression from the API and show to the user
+Component created to GET the mathematical expression from the API and show to the user.
 
 Has 3 methods:
-ngOnInit: to call the getExpression() method in inicialization
-ngOnChanges: to call the getExpression() method when the user clicks in something
-getExpression: calls the GET http Request from the service that communicates with my API
+ngOnInit: to call the getExpression() method in inicialization.
+ngOnChanges: to call the getExpression() method when the user clicks in something.
+getExpression: calls the GET http Request from the service that communicates with my API.
 
 ### 3.PadComponent
 Component created to map the keyboard of my calculator and send consistent values to the API when the User clicks in any button
