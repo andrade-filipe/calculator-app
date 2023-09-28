@@ -1,7 +1,7 @@
 # CalculatorApp - Front-End
 This is the Front-end for my Calculator Project, the back-end is in: https://github.com/andrade-filipe/calculator-back-end
 
-Front-end is made with Angular and has 4 main components
+made with TypeScript and Angular and has 4 main components
 
 ## Components
 ### 1. Calculator Component
