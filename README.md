@@ -14,7 +14,7 @@ Variable "refresh" it's what the method updates
 Component created to GET the mathematical expression from the API and show to the user.
 
 Has 3 methods:
-ngOnInit: to call the getExpression() method in inicialization.
+<span> ngOnInit </span>: to call the getExpression() method in inicialization.
 ngOnChanges: to call the getExpression() method when the user clicks in something.
 getExpression: calls the GET http Request from the service that communicates with my API.
 
