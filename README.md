@@ -41,7 +41,7 @@ This is what makes all the communication with the API, i opted to make a Reactiv
 ## Other
 
 ### data-state.enum.ts, app-state.ts(interface)
-created to help displying the current data loading state
+created to help displaying the current data loading state
 
 ### custom-response.ts(interface)
 created to send and recieve data in a specific template, i use the same template inside my back-end, wich is very usefull and keeps the data I/O consistent, reliable and constant
