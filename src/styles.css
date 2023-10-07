@@ -1,12 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
 :root {
     /*-----------------
   COLORS
   ------------------*/
 
-    --clr-primary: hsl(218, 24%, 9%);
-    --clr-accent: hsl(140, 10%, 94%);
-    --clr-complement: hsl(207, 90%, 25%);
+    --clr-primary: hsl(0, 0%, 13%);
+    --clr-accent: hsl(0, 0%, 96%);
+    --clr-complement: hsl(261, 100%, 27%);
+    --clr-error: hsl(351, 100%, 35%);
 
     /*-----------------
   FONTS
@@ -109,6 +112,14 @@ UTILITY CLASSES
 /*-------------------------------------
 PAD
 ---------------------------------------*/
+.pad__row {
+    padding: 0;
+    min-width: 34rem;
+}
+.pad__container {
+    padding: 0;
+    margin: 0;
+}
 
 .pad__button {
     width: 7rem;
@@ -148,6 +159,7 @@ PAD
     background-color: var(--clr-primary);
 }
 
+
 /*-------------------------------------
 DISPLAY
 ---------------------------------------*/
@@ -160,6 +172,7 @@ DISPLAY
     padding-right: 0.5rem;
 
     color: var(--clr-accent);
+    background-color: transparent;
 
     font-size: var(--fs-biggerscreen);
     font-weight: var(--fw-semi-bold);
@@ -170,6 +183,7 @@ DISPLAY
     border-width: 1px;
     border-style: solid;
 
-    min-width: 29rem;
+    min-width: 30rem;
+    max-width: 30rem;
     min-height: 4rem;
 }
