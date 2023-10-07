@@ -3,7 +3,6 @@ import {
     Input,
     OnChanges,
     OnInit,
-    SimpleChanges,
 } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
 import {

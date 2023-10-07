@@ -9,5 +9,11 @@
 <p>CalculatorComponent: Organizes Display and Pad to the view, also connects the other child components ✔️</p>
 <p>CalculatorService: Communicate with the API ✔️</p>
 <p>AppState Interface: is used to show the user if all was loaded correctly from the API ✔️</p>
-<p>Verificate if Mathematical expression being sent to the back end is valid🔴</p>
-<p>Robust Error Handlers 🔴</p>
+<ul>
+    <li>Robust Error Handlers 🔴</li>
+    <ul>
+    <li>Wrong Character 🔴</li>
+    <li>Certificate if Mathematical expression being sent to the back-end is valid 🔴</li>
+    <li>Could not connect with API ✔️</li>
+    </ul>
+</ul>
