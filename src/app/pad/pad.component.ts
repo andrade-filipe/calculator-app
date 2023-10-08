@@ -13,10 +13,10 @@ export class PadComponent {
         ['parenthesis_right', '('],
         ['parenthesis_left', ')'],
         ['percentage', '%'],
-        ['multiply', ' * '],
-        ['divide', ' / '],
-        ['subtract', ' - '],
-        ['add', ' + '],
+        ['multiply', '*'],
+        ['divide', '/'],
+        ['subtract', '-'],
+        ['add', '+'],
         ['dot', '.'],
         ['number_one', '1'],
         ['number_two', '2'],
@@ -34,10 +34,13 @@ export class PadComponent {
 
     constructor(private calculatorService: CalculatorService) {}
 
+    change = 0;
     expressionParser(digit: string): void {
         let clicked = this.padDigits.get(digit);
+
         if (clicked != undefined) {
-            this.clickedPad.emit(clicked);
+            this.clickedPad.emit(`${clicked + this.change}`);
+            this.change++;
         }
     }
 }

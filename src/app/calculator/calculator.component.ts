@@ -1,3 +1,4 @@
+import { CustomResponse } from './../interfaces/custom-response';
 import { CalculatorService } from '../services/calculator-service/calculator.service'
 import { Component } from '@angular/core';
 

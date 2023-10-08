@@ -19,32 +19,35 @@ export class DisplayComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.onKey('');
+        this.clearExpression();
         this.getExpression();
     }
 
     ngOnChanges(): void {
-        if (this.clickedReceptor == 'clear') {
+        if (this.clickedReceptor.startsWith('c')) {
             this.clearExpression();
-        } else if (this.clickedReceptor == 'solve') {
+        } else if (this.clickedReceptor.startsWith('s')) {
             this.solveExpression();
         } else {
             this.expression = {
-                expression: this.expression.expression + this.clickedReceptor,
+                expression: this.expression.expression + this.clickedReceptor.charAt(0),
             };
-            this.buildExpression(this.expression);
+            this.onKey(this.expression.expression);
         }
         this.getExpression();
     }
 
-    onKey(value: string) {
+    onKey(value: string | undefined) {
         this.expression = { expression: value };
-        this.buildExpression(this.expression);
-        this.getExpression();
+        if (this.expression.expression != ''){
+            this.buildExpression(this.expression);
+        }
     }
 
     getExpression() {
         this.expression$ = this.calculatorService.expression$.pipe(
             map((response) => {
+                this.onKey(response.data.expression)
                 return response.data.expression;
             })
         );

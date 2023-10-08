@@ -1,3 +1,3 @@
 export interface Expression {
-    expression: string;
+    expression: string | undefined;
 }
