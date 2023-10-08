@@ -32,6 +32,9 @@ export class DisplayComponent implements OnInit, OnChanges {
         this.getExpression();
     }
 
+    onKey(value: string) {
+    }
+
     getExpression() {
         this.expression$ = this.calculatorService.expression$.pipe(
             map((expression) => {
