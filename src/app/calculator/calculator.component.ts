@@ -1,6 +1,7 @@
 import { CalculatorService } from '../services/calculator-service/calculator.service'
 import { Component } from '@angular/core';
 import { CustomResponse } from '../interfaces/custom-response';
+import { Expression } from '../interfaces/expression';
 
 @Component({
     selector: 'app-calculator',
@@ -12,14 +13,13 @@ export class CalculatorComponent {
 
     refresh !: CustomResponse;
 
-    concat !: string;
+    expression !: Expression;
 
     refreshDisplay(event: CustomResponse) {
         this.refresh = event;
     }
 
-    concatenate(digit: string) {
-        this.concat = digit;
-        console.log("calculator component");
+    currExpression(expression: Expression) {
+        this.expression = expression;
     }
 }

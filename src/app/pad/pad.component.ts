@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
 import { Expression } from '../interfaces/expression';
 import { CustomResponse } from '../interfaces/custom-response';
@@ -8,12 +8,12 @@ import { CustomResponse } from '../interfaces/custom-response';
     templateUrl: './pad.component.html',
     styleUrls: ['./pad.component.css'],
 })
-export class PadComponent {
+export class PadComponent implements OnInit {
     @Output() clicked = new EventEmitter<CustomResponse>();
 
-    @Output() concatenate = new EventEmitter<string>();
+    @Input() currExpression !: Expression;
 
-    expression!: Expression;
+    expression !: Expression;
 
     aux !: CustomResponse;
 
@@ -40,15 +40,23 @@ export class PadComponent {
 
     constructor(private calculatorService: CalculatorService) {}
 
+    ngOnInit(): void {
+        this.expression = this.currExpression;
+    }
+
     expressionParser(digit: string): void {
         console.log("parser")
         let concatenate = this.padDigits.get(digit);
-        this.buildExpression(concatenate);
+        if (concatenate != undefined) {
+            this.buildExpression(concatenate);
+        }
     }
 
-    buildExpression(digit: string | undefined): void {
+    buildExpression(digit: string): void {
         console.log("build");
-        this.concatenate.emit(digit);
+        this.expression = {expression: this.currExpression.expression + digit};
+        this.calculatorService.build$(this.expression).subscribe(response => this.aux = response);
+        this.clicked.emit(this.aux);
     }
 
     solveExpression() {

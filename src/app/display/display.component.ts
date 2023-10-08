@@ -1,9 +1,10 @@
 import {
     Component,
+    EventEmitter,
     Input,
     OnChanges,
     OnInit,
-    SimpleChanges,
+    Output,
 } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
 import {
@@ -22,33 +23,35 @@ export class DisplayComponent implements OnInit, OnChanges {
 
     @Input() refreshDisplay !: CustomResponse;
 
-    @Input() concatenate !: string;
+    @Output() currExpression = new EventEmitter<Expression>;
 
     expression$ !: Observable<string | undefined>;
 
-    expression : Expression = {expression: ''};
+    expression !: Expression;
 
     constructor(private calculatorService: CalculatorService) {}
 
     ngOnInit(): void {
-        this.calculatorService.clear$.subscribe();
+        this.onKey('');
         this.getExpression();
+
     }
 
     ngOnChanges(): void {
         this.getExpression();
     }
 
-    onKey(value: string | undefined) {
+    onKey(value: string) {
         this.expression = {expression: value};
         this.calculatorService.build$(this.expression).subscribe();
+        this.currExpression.emit(this.expression);
     }
 
     getExpression() {
         this.expression$ = this.calculatorService.expression$.pipe(
-            map((expression) => {
-                return expression.data.expression;
+            map((response) => {
+                return response.data.expression;
             })
-        );
+        )
     }
 }
