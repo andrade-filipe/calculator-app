@@ -42,7 +42,7 @@ export class CalculatorService {
             .get<CustomResponse>(`${this.API_URL}/expression`)
             .pipe(
                 tap(console.log),
-                catchError(this.handleError)
+                catchError(this.handleError),
             );
 
         this.solve$ = this.http

@@ -1,6 +1,10 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
-import { Observable, ReplaySubject, distinctUntilChanged, map, shareReplay } from 'rxjs';
+import {
+    Observable,
+    map,
+    shareReplay,
+} from 'rxjs';
 import { Expression } from '../interfaces/expression';
 
 @Component({
@@ -38,7 +42,7 @@ export class DisplayComponent implements OnInit, OnChanges {
     }
 
     onKey(value: string | undefined) {
-        this.expression = { expression: value };
+        this.expression = { expression: value}; //trim this
         if (this.expression.expression != '') {
             this.buildExpression(this.expression);
         } else {
