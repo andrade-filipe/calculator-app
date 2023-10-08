@@ -1,14 +1,6 @@
-import {
-    Component,
-    Input,
-    OnChanges,
-    OnInit,
-} from '@angular/core';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
-import {
-    Observable,
-    map,
-} from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Expression } from '../interfaces/expression';
 
 @Component({
@@ -17,12 +9,11 @@ import { Expression } from '../interfaces/expression';
     styleUrls: ['./display.component.css'],
 })
 export class DisplayComponent implements OnInit, OnChanges {
+    @Input() clickedReceptor!: string;
 
-    @Input() clickedReceptor !: string;
+    expression$!: Observable<string | undefined>;
 
-    expression$ !: Observable<string | undefined>;
-
-    expression !: Expression;
+    expression!: Expression;
 
     constructor(private calculatorService: CalculatorService) {}
 
@@ -32,12 +23,23 @@ export class DisplayComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(): void {
+        if (this.clickedReceptor == 'clear') {
+            this.clearExpression();
+        } else if (this.clickedReceptor == 'solve') {
+            this.solveExpression();
+        } else {
+            this.expression = {
+                expression: this.expression.expression + this.clickedReceptor,
+            };
+            this.buildExpression(this.expression);
+        }
         this.getExpression();
     }
 
     onKey(value: string) {
-        this.expression = {expression: value};
-        this.calculatorService.build$(this.expression).subscribe();
+        this.expression = { expression: value };
+        this.buildExpression(this.expression);
+        this.getExpression();
     }
 
     getExpression() {
@@ -45,23 +47,18 @@ export class DisplayComponent implements OnInit, OnChanges {
             map((response) => {
                 return response.data.expression;
             })
-        )
+        );
     }
 
-    // buildExpression(digit: string): void {
-    //     console.log("build");
-    //     this.expression = {expression: this.currExpression.expression + digit};
-    //     this.calculatorService.build$(this.expression).subscribe(response => this.aux = response);
-    //     this.clicked.emit(this.aux);
-    // }
+    buildExpression(expression: Expression): void {
+        this.calculatorService.build$(expression).subscribe();
+    }
 
-    // solveExpression() {
-    //     this.calculatorService.solve$.subscribe(response => this.aux = response)
-    //     this.clicked.emit(this.aux);
-    // }
+    solveExpression() {
+        this.calculatorService.solve$.subscribe();
+    }
 
-    // clearExpression() {
-    //     this.calculatorService.clear$.subscribe(response => this.aux = response)
-    //     this.clicked.emit(this.aux);
-    // }
+    clearExpression() {
+        this.calculatorService.clear$.subscribe();
+    }
 }
