@@ -1,12 +1,12 @@
 <div class="container text-center">
     <div class="row">
         <div class="col-10">
-            <app-display [refreshDisplay]="refresh" (currExpression)="currExpression($event)"></app-display>
+            <app-display [clickedReceptor]="clickedVar"></app-display>
         </div>
     </div>
     <div class="row">
         <div class="col-10">
-            <app-pad (clicked)="refreshDisplay($event)" [currExpression]="expression" ></app-pad>
+            <app-pad (clickedPad)="clickedEvent($event)" ></app-pad>
         </div>
     </div>
 </div>

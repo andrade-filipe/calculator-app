@@ -1,21 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
-import { Expression } from '../interfaces/expression';
-import { CustomResponse } from '../interfaces/custom-response';
 
 @Component({
     selector: 'app-pad',
     templateUrl: './pad.component.html',
     styleUrls: ['./pad.component.css'],
 })
-export class PadComponent implements OnInit {
-    @Output() clicked = new EventEmitter<CustomResponse>();
-
-    @Input() currExpression !: Expression;
-
-    expression !: Expression;
-
-    aux !: CustomResponse;
+export class PadComponent {
+    @Output() clickedPad = new EventEmitter<string>();
 
     padDigits: Map<string, string> = new Map([
         ['parenthesis_right', '('],
@@ -36,36 +28,16 @@ export class PadComponent implements OnInit {
         ['number_eight', '8'],
         ['number_nine', '9'],
         ['number_zero', '0'],
+        ['solve', 'solve'],
+        ['clear', 'clear'],
     ]);
 
     constructor(private calculatorService: CalculatorService) {}
 
-    ngOnInit(): void {
-        this.expression = this.currExpression;
-    }
-
     expressionParser(digit: string): void {
-        console.log("parser")
-        let concatenate = this.padDigits.get(digit);
-        if (concatenate != undefined) {
-            this.buildExpression(concatenate);
+        let clicked = this.padDigits.get(digit);
+        if (clicked != undefined) {
+            this.clickedPad.emit(clicked);
         }
-    }
-
-    buildExpression(digit: string): void {
-        console.log("build");
-        this.expression = {expression: this.currExpression.expression + digit};
-        this.calculatorService.build$(this.expression).subscribe(response => this.aux = response);
-        this.clicked.emit(this.aux);
-    }
-
-    solveExpression() {
-        this.calculatorService.solve$.subscribe(response => this.aux = response)
-        this.clicked.emit(this.aux);
-    }
-
-    clearExpression() {
-        this.calculatorService.clear$.subscribe(response => this.aux = response)
-        this.clicked.emit(this.aux);
     }
 }

@@ -21,7 +21,7 @@
                     %
                 </button>
                 <button
-                    (click)="clearExpression()"
+                    (click)="expressionParser('clear')"
                     class="pad__button pad__button--operator | btn btn-outline-light"
                 >
                     clear
@@ -131,7 +131,7 @@
                     .
                 </button>
                 <button
-                    (click)="solveExpression()"
+                    (click)="expressionParser('solve')"
                     class="pad__button pad__button--operator-equal | btn btn-outline-light"
                 >
                     =

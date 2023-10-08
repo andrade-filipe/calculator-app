@@ -1,17 +1,14 @@
 import {
     Component,
-    EventEmitter,
     Input,
     OnChanges,
     OnInit,
-    Output,
 } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
 import {
     Observable,
     map,
 } from 'rxjs';
-import { CustomResponse } from '../interfaces/custom-response';
 import { Expression } from '../interfaces/expression';
 
 @Component({
@@ -21,9 +18,7 @@ import { Expression } from '../interfaces/expression';
 })
 export class DisplayComponent implements OnInit, OnChanges {
 
-    @Input() refreshDisplay !: CustomResponse;
-
-    @Output() currExpression = new EventEmitter<Expression>;
+    @Input() clickedReceptor !: string;
 
     expression$ !: Observable<string | undefined>;
 
@@ -34,7 +29,6 @@ export class DisplayComponent implements OnInit, OnChanges {
     ngOnInit(): void {
         this.onKey('');
         this.getExpression();
-
     }
 
     ngOnChanges(): void {
@@ -44,7 +38,6 @@ export class DisplayComponent implements OnInit, OnChanges {
     onKey(value: string) {
         this.expression = {expression: value};
         this.calculatorService.build$(this.expression).subscribe();
-        this.currExpression.emit(this.expression);
     }
 
     getExpression() {
@@ -54,4 +47,21 @@ export class DisplayComponent implements OnInit, OnChanges {
             })
         )
     }
+
+    // buildExpression(digit: string): void {
+    //     console.log("build");
+    //     this.expression = {expression: this.currExpression.expression + digit};
+    //     this.calculatorService.build$(this.expression).subscribe(response => this.aux = response);
+    //     this.clicked.emit(this.aux);
+    // }
+
+    // solveExpression() {
+    //     this.calculatorService.solve$.subscribe(response => this.aux = response)
+    //     this.clicked.emit(this.aux);
+    // }
+
+    // clearExpression() {
+    //     this.calculatorService.clear$.subscribe(response => this.aux = response)
+    //     this.clicked.emit(this.aux);
+    // }
 }

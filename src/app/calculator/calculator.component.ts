@@ -1,7 +1,5 @@
 import { CalculatorService } from '../services/calculator-service/calculator.service'
 import { Component } from '@angular/core';
-import { CustomResponse } from '../interfaces/custom-response';
-import { Expression } from '../interfaces/expression';
 
 @Component({
     selector: 'app-calculator',
@@ -11,15 +9,9 @@ import { Expression } from '../interfaces/expression';
 export class CalculatorComponent {
     constructor(private CalculatorService: CalculatorService) {}
 
-    refresh !: CustomResponse;
+    clickedVar !: string;
 
-    expression !: Expression;
-
-    refreshDisplay(event: CustomResponse) {
-        this.refresh = event;
-    }
-
-    currExpression(expression: Expression) {
-        this.expression = expression;
+    clickedEvent(event: string) {
+        this.clickedVar = event;
     }
 }
