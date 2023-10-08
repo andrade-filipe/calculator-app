@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
-import { Observable, map } from 'rxjs';
+import { Observable, ReplaySubject, distinctUntilChanged, map, shareReplay } from 'rxjs';
 import { Expression } from '../interfaces/expression';
 
 @Component({
@@ -15,11 +15,11 @@ export class DisplayComponent implements OnInit, OnChanges {
 
     expression!: Expression;
 
+    currExpression: string | undefined;
+
     constructor(private calculatorService: CalculatorService) {}
 
     ngOnInit(): void {
-        this.onKey('');
-        this.clearExpression();
         this.getExpression();
     }
 
@@ -29,39 +29,48 @@ export class DisplayComponent implements OnInit, OnChanges {
         } else if (this.clickedReceptor.startsWith('s')) {
             this.solveExpression();
         } else {
-            this.expression = {
-                expression: this.expression.expression + this.clickedReceptor.charAt(0),
-            };
-            this.onKey(this.expression.expression);
+            if (this.currExpression == undefined) {
+                this.currExpression = '';
+            }
+            this.onKey(this.currExpression + this.clickedReceptor.charAt(0));
         }
         this.getExpression();
     }
 
     onKey(value: string | undefined) {
         this.expression = { expression: value };
-        if (this.expression.expression != ''){
+        if (this.expression.expression != '') {
             this.buildExpression(this.expression);
+        } else {
+            this.currExpression = '';
         }
     }
 
     getExpression() {
         this.expression$ = this.calculatorService.expression$.pipe(
             map((response) => {
-                this.onKey(response.data.expression)
                 return response.data.expression;
             })
         );
     }
 
-    buildExpression(expression: Expression): void {
-        this.calculatorService.build$(expression).subscribe();
+    buildExpression(buildThis: Expression): void {
+        this.currExpression = buildThis.expression;
+        this.calculatorService.build$(buildThis).subscribe();
     }
 
     solveExpression() {
-        this.calculatorService.solve$.subscribe();
+        this.calculatorService.solve$
+            .pipe(
+                map((solved) => {
+                    this.onKey(solved.data.expression);
+                })
+            )
+            .subscribe();
     }
 
     clearExpression() {
+        this.onKey('');
         this.calculatorService.clear$.subscribe();
     }
 }

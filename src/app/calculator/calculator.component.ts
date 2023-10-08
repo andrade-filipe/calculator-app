@@ -1,4 +1,3 @@
-import { CustomResponse } from './../interfaces/custom-response';
 import { CalculatorService } from '../services/calculator-service/calculator.service'
 import { Component } from '@angular/core';
 
@@ -8,8 +7,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./calculator.component.css'],
 })
 export class CalculatorComponent {
-    constructor(private CalculatorService: CalculatorService) {}
-
     clickedVar !: string;
 
     clickedEvent(event: string) {
