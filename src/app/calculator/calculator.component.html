@@ -1,12 +1,12 @@
 <div class="container text-center">
     <div class="row">
         <div class="col-10">
-            <app-display [refreshDisplay]="refresh"></app-display>
+            <app-display [refreshDisplay]="refresh" [concatenate]="concat"></app-display>
         </div>
     </div>
     <div class="row">
         <div class="col-10">
-            <app-pad (clicked)="refreshDisplay($event)" ></app-pad>
+            <app-pad (clicked)="refreshDisplay($event)" (concatenate)="concatenate($event)" ></app-pad>
         </div>
     </div>
 </div>

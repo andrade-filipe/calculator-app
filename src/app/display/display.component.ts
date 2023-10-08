@@ -3,6 +3,7 @@ import {
     Input,
     OnChanges,
     OnInit,
+    SimpleChanges,
 } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
 import {
@@ -10,6 +11,7 @@ import {
     map,
 } from 'rxjs';
 import { CustomResponse } from '../interfaces/custom-response';
+import { Expression } from '../interfaces/expression';
 
 @Component({
     selector: 'app-display',
@@ -18,13 +20,18 @@ import { CustomResponse } from '../interfaces/custom-response';
 })
 export class DisplayComponent implements OnInit, OnChanges {
 
-    @Input() refreshDisplay !: CustomResponse
+    @Input() refreshDisplay !: CustomResponse;
 
-    expression$ !: Observable<string | undefined>
+    @Input() concatenate !: string;
+
+    expression$ !: Observable<string | undefined>;
+
+    expression : Expression = {expression: ''};
 
     constructor(private calculatorService: CalculatorService) {}
 
     ngOnInit(): void {
+        this.calculatorService.clear$.subscribe();
         this.getExpression();
     }
 
@@ -32,7 +39,9 @@ export class DisplayComponent implements OnInit, OnChanges {
         this.getExpression();
     }
 
-    onKey(value: string) {
+    onKey(value: string | undefined) {
+        this.expression = {expression: value};
+        this.calculatorService.build$(this.expression).subscribe();
     }
 
     getExpression() {

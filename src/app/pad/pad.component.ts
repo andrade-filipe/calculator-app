@@ -8,8 +8,10 @@ import { CustomResponse } from '../interfaces/custom-response';
     templateUrl: './pad.component.html',
     styleUrls: ['./pad.component.css'],
 })
-export class PadComponent implements OnInit {
+export class PadComponent {
     @Output() clicked = new EventEmitter<CustomResponse>();
+
+    @Output() concatenate = new EventEmitter<string>();
 
     expression!: Expression;
 
@@ -38,18 +40,15 @@ export class PadComponent implements OnInit {
 
     constructor(private calculatorService: CalculatorService) {}
 
-    ngOnInit(): void {
-        this.clearExpression();
-    }
-
     expressionParser(digit: string): void {
-        this.expression = { expression: this.padDigits.get(digit) };
-        this.buildExpression(this.expression);
+        console.log("parser")
+        let concatenate = this.padDigits.get(digit);
+        this.buildExpression(concatenate);
     }
 
-    buildExpression(expression: Expression): void {
-        this.calculatorService.build$(expression).subscribe(response => this.aux = response);
-        this.clicked.emit(this.aux);
+    buildExpression(digit: string | undefined): void {
+        console.log("build");
+        this.concatenate.emit(digit);
     }
 
     solveExpression() {

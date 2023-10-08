@@ -10,9 +10,16 @@ import { CustomResponse } from '../interfaces/custom-response';
 export class CalculatorComponent {
     constructor(private CalculatorService: CalculatorService) {}
 
-    refresh !: CustomResponse
+    refresh !: CustomResponse;
+
+    concat !: string;
 
     refreshDisplay(event: CustomResponse) {
-        this.refresh = event
+        this.refresh = event;
+    }
+
+    concatenate(digit: string) {
+        this.concat = digit;
+        console.log("calculator component");
     }
 }
