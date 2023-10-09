@@ -27,15 +27,17 @@ export class DisplayComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(): void {
-        if (this.clickedReceptor.startsWith('c')) {
-            this.clearExpression();
-        } else if (this.clickedReceptor.startsWith('s')) {
-            this.solveExpression();
-        } else {
-            if (this.currExpression == undefined) {
-                this.currExpression = '';
+        if(this.clickedReceptor != undefined) {
+            if (this.clickedReceptor.startsWith('c', 0)) {
+                this.clearExpression();
+            } else if (this.clickedReceptor.startsWith('s', 0)) {
+                this.solveExpression();
+            } else {
+                if (this.currExpression == undefined) {
+                    this.currExpression = '';
+                }
+                this.onKey(this.currExpression + this.clickedReceptor.charAt(0));
             }
-            this.onKey(this.currExpression + this.clickedReceptor.charAt(0));
         }
         this.getExpression();
     }
