@@ -16,10 +16,10 @@ export class GlobalHttpErrorHandler implements HttpInterceptor {
     return next.handle(request).pipe(
         retry({
             count: 3,
-            delay: (_, retryCount) => timer(retryCount * 1000),
+            delay: (_, retryCount) => timer(retryCount * 200),
         }),
         catchError( err => {
-            return throwError(() => err);
+            return throwError(() => {return err});
         })
     );
   }

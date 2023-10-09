@@ -65,7 +65,10 @@ export class DisplayComponent implements OnInit, OnChanges {
             map((response) => {
                 return response.data.expression;
             }),
-            catchError(err => of()),
+            catchError(err => {
+                throwError(() => {return err})
+                return of();
+            }),
         );
     }
 
@@ -75,7 +78,10 @@ export class DisplayComponent implements OnInit, OnChanges {
                 map((solved) => {
                     this.onKey(solved.data.expression);
                 }),
-                catchError(err => of()),
+                catchError(err => {
+                    throwError(() => {return err})
+                    return of();
+                }),
             )
             .subscribe();
     }
@@ -83,7 +89,10 @@ export class DisplayComponent implements OnInit, OnChanges {
     clearExpression() {
         this.onKey('');
         this.calculatorService.clear$.pipe(
-            catchError(err => of()),
+            catchError(err => {
+                throwError(() => {return err})
+                return of();
+            }),
         ).subscribe();
     }
 }

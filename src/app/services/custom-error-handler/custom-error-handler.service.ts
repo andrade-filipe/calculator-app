@@ -9,13 +9,12 @@ export class CustomErrorHandler implements ErrorHandler {
   handleError(error: unknown) {
     this.zone.run(() => {
         this.snackbar.open(
-            "Error Found",
+            "System Failed, we are working on it",
             "Close",
             {
                 duration: 3000
             }
         );
     })
-    console.warn(`Error Caught: `, error);
   }
 }
