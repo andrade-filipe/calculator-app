@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -15,6 +15,7 @@ import { PadComponent } from './pad/pad.component';
 import { DisplayComponent } from './display/display.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { CustomErrorHandler } from './services/custom-error-handler/custom-error-handler.service';
+import { GlobalHttpErrorHandler } from './interceptors/global-http-error-handler.interceptor';
 @NgModule({
     declarations: [
         AppComponent,
@@ -38,6 +39,11 @@ import { CustomErrorHandler } from './services/custom-error-handler/custom-error
         {
             provide: ErrorHandler,
             useClass: CustomErrorHandler,
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: GlobalHttpErrorHandler,
+            multi: true,
         },
     ],
     bootstrap: [AppComponent],

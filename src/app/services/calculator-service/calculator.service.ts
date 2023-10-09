@@ -1,13 +1,11 @@
 import {
     HttpClient,
-    HttpErrorResponse,
     HttpHeaders,
 } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import {
     Observable,
     catchError,
-    tap,
     throwError,
 } from 'rxjs';
 import { AppConfig } from 'src/app/app-config/app-config.interface';
@@ -40,19 +38,31 @@ export class CalculatorService {
         this.expression$ = this.http
             .get<CustomResponse>(`${this.API_URL}/expression`)
             .pipe(
-                catchError(this.handleError),
+                catchError(() => {
+                    return throwError(() => {
+                        return new Error("Couldn't load Data")
+;                    })
+                }),
             );
 
         this.solve$ = this.http
             .get<CustomResponse>(`${this.API_URL}/solve`)
             .pipe(
-                catchError(this.handleError)
+                catchError(() => {
+                    return throwError(() => {
+                        return new Error("Couldn't solve expression")
+;                    })
+                }),
             );
 
         this.clear$ = this.http
             .get<CustomResponse>(`${this.API_URL}/clear`)
             .pipe(
-                catchError(this.handleError)
+                catchError(() => {
+                    return throwError(() => {
+                        return new Error("Couldn't clear expression")
+;                    })
+                }),
             );
     }
 
@@ -61,19 +71,15 @@ export class CalculatorService {
             this.http
                 .post<CustomResponse>(`${this.API_URL}/build`, expression)
                 .pipe(
-                    catchError(this.handleError)
+                    catchError(() => {
+                        return throwError(() => {
+                            return new Error("Couldn't build expression")
+    ;                    })
+                    }),
                 )
         );
 
     buildExpression(expression: Expression) {
         this.build$(expression).subscribe();
-    }
-
-    /**
-     * Handle Http operation that failed.
-     * Let the app continue.
-     */
-    private handleError(error: HttpErrorResponse): Observable<never> {
-        return throwError(() => new Error(`Error code: ${error.status}`));
     }
 }

@@ -1,6 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CalculatorService } from '../services/calculator-service/calculator.service';
-
+import { Component, EventEmitter, Output } from '@angular/core';
 @Component({
     selector: 'app-pad',
     templateUrl: './pad.component.html',
@@ -31,8 +29,6 @@ export class PadComponent {
         ['solve', 'solve'],
         ['clear', 'clear'],
     ]);
-
-    constructor(private calculatorService: CalculatorService) {}
 
     change = 0;
     expressionParser(digit: string): void {

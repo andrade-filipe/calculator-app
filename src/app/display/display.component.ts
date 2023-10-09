@@ -2,7 +2,10 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
 import {
     Observable,
+    catchError,
     map,
+    of,
+    throwError,
 } from 'rxjs';
 import { Expression } from '../interfaces/expression';
 
@@ -51,17 +54,19 @@ export class DisplayComponent implements OnInit, OnChanges {
         }
     }
 
+    buildExpression(buildThis: Expression): void {
+        this.currExpression = buildThis.expression;
+        this.calculatorService.build$(buildThis).subscribe();
+    }
+
+
     getExpression() {
         this.expression$ = this.calculatorService.expression$.pipe(
             map((response) => {
                 return response.data.expression;
-            })
+            }),
+            catchError(err => of()),
         );
-    }
-
-    buildExpression(buildThis: Expression): void {
-        this.currExpression = buildThis.expression;
-        this.calculatorService.build$(buildThis).subscribe();
     }
 
     solveExpression() {
@@ -69,13 +74,16 @@ export class DisplayComponent implements OnInit, OnChanges {
             .pipe(
                 map((solved) => {
                     this.onKey(solved.data.expression);
-                })
+                }),
+                catchError(err => of()),
             )
             .subscribe();
     }
 
     clearExpression() {
         this.onKey('');
-        this.calculatorService.clear$.subscribe();
+        this.calculatorService.clear$.pipe(
+            catchError(err => of()),
+        ).subscribe();
     }
 }
