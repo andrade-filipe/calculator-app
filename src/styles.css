@@ -188,4 +188,9 @@ DISPLAY
     min-height: 4rem;
 }
 
+.error-message {
+    background-color: var(--clr-error);
+    color: var(--clr-accent);
+    padding: 1rem 0;
+}
 

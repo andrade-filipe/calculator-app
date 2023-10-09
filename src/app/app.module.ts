@@ -9,13 +9,15 @@ import { FormsModule } from '@angular/forms';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { PadComponent } from './pad/pad.component';
 import { DisplayComponent } from './display/display.component';
+import { ExceptionComponent } from './exception/exception.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalculatorComponent,
     PadComponent,
-    DisplayComponent
+    DisplayComponent,
+    ExceptionComponent
   ],
   imports: [
     BrowserModule,

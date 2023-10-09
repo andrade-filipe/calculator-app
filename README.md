@@ -18,6 +18,7 @@
     </ul>
 </ul>
 
-## Necessary Updates
+## Update
+<p>Permit the user to type the expression through the keyboard (not just the virtual one) and correctly send to the API ✔️</p>
 
-<p>Permit the user to type the expression through the keyboard (not just the virtual one) and correctly send to the API 🔴</p>
+
