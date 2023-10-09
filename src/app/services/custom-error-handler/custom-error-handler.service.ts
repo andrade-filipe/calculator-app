@@ -8,13 +8,24 @@ export class CustomErrorHandler implements ErrorHandler {
 
   handleError(error: unknown) {
     this.zone.run(() => {
-        this.snackbar.open(
-            "System Failed, we are working on it",
-            "Close",
-            {
-                duration: 3000
-            }
-        );
+        if (error instanceof Error){
+            this.snackbar.open(
+                error.message,
+                "Close",
+                {
+                    duration: 3000
+                }
+            );
+        } else {
+            this.snackbar.open(
+                "System Failed, we are working on it",
+                "Close",
+                {
+                    duration: 3000
+                }
+            );
+        }
     })
+    console.warn(error);
   }
 }

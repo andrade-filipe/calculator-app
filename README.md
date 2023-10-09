@@ -12,9 +12,12 @@
 <ul>
     <li>Robust Error Handlers 🔴</li>
     <ul>
-    <li>Wrong Character 🔴</li>
+    <li>Wrong Characters 🔴</li>
     <li>Certificate if Mathematical expression being sent to the back-end is valid 🔴</li>
     <li>Could not connect with API ✔️</li>
+    <li>HTTP Interceptor ✔️</li>
+    <li>Snack-Bar shows that the system failed to the user ✔️</li>
+    <li>RxJs reactive error handler operators for asyncronous elements ✔️</li>
     </ul>
 </ul>
 
