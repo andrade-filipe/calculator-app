@@ -7,7 +7,6 @@ import { Inject, Injectable } from '@angular/core';
 import {
     Observable,
     catchError,
-    shareReplay,
     tap,
     throwError,
 } from 'rxjs';
@@ -41,21 +40,18 @@ export class CalculatorService {
         this.expression$ = this.http
             .get<CustomResponse>(`${this.API_URL}/expression`)
             .pipe(
-                tap(console.log),
                 catchError(this.handleError),
             );
 
         this.solve$ = this.http
             .get<CustomResponse>(`${this.API_URL}/solve`)
             .pipe(
-                tap(console.log),
                 catchError(this.handleError)
             );
 
         this.clear$ = this.http
             .get<CustomResponse>(`${this.API_URL}/clear`)
             .pipe(
-                tap(console.log),
                 catchError(this.handleError)
             );
     }
@@ -65,7 +61,6 @@ export class CalculatorService {
             this.http
                 .post<CustomResponse>(`${this.API_URL}/build`, expression)
                 .pipe(
-                    tap(console.log),
                     catchError(this.handleError)
                 )
         );
