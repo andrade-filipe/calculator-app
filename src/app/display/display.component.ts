@@ -3,7 +3,6 @@ import { CalculatorService } from '../services/calculator-service/calculator.ser
 import {
     Observable,
     map,
-    shareReplay,
 } from 'rxjs';
 import { Expression } from '../interfaces/expression';
 
