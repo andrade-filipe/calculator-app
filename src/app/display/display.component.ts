@@ -110,7 +110,8 @@ export class DisplayComponent implements OnInit, OnChanges {
             expression?.includes('%%') ||
             expression?.includes('//') ||
             expression?.includes('()') ||
-            expression?.includes('**')
+            expression?.includes('**') ||
+            expression?.match(new RegExp('[a-zA-z]'))
         ) {
             return false;
         }
