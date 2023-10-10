@@ -1,6 +1,0 @@
-Prioridade:
-1.fazer build corretamente quando o usuário digitar algo dentro do input.
-2.fazer build corretamente quando o usuário clickar em algum botao do teclado virtual.
-    ideias -> salvar a string do display numa variável e passar essa string no build sempre
-
-3.verificação se a expressão é válida e pode ser resolvida.

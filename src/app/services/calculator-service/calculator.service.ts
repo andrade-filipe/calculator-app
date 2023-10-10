@@ -1,13 +1,6 @@
-import {
-    HttpClient,
-    HttpHeaders,
-} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import {
-    Observable,
-    catchError,
-    throwError,
-} from 'rxjs';
+import { Observable, catchError, throwError } from 'rxjs';
 import { AppConfig } from 'src/app/app-config/app-config.interface';
 import { APP_SERVICE_CONFIG } from 'src/app/app-config/app-config.service';
 import { CustomResponse } from 'src/app/interfaces/custom-response';
@@ -17,13 +10,15 @@ import { Expression } from 'src/app/interfaces/expression';
     providedIn: 'root',
 })
 export class CalculatorService {
-    public expression$!: Observable<CustomResponse>;
-
-    public solve$!: Observable<CustomResponse>;
-
-    public clear$!: Observable<CustomResponse>;
-
     readonly API_URL: string = `${this.config.apiUrl}/api/v1`;
+
+    private expression$!: Observable<CustomResponse>;
+
+    private solve$!: Observable<CustomResponse>;
+
+    private clear$!: Observable<CustomResponse>;
+
+    private build$!: any;
 
     httpOptions = {
         headers: new HttpHeaders({
@@ -40,9 +35,9 @@ export class CalculatorService {
             .pipe(
                 catchError(() => {
                     return throwError(() => {
-                        return new Error("Couldn't load Data")
-;                    })
-                }),
+                        return new Error("Couldn't load Data");
+                    });
+                })
             );
 
         this.solve$ = this.http
@@ -50,9 +45,9 @@ export class CalculatorService {
             .pipe(
                 catchError(() => {
                     return throwError(() => {
-                        return new Error("Couldn't solve expression")
-;                    })
-                }),
+                        return new Error("Couldn't solve expression");
+                    });
+                })
             );
 
         this.clear$ = this.http
@@ -60,24 +55,36 @@ export class CalculatorService {
             .pipe(
                 catchError(() => {
                     return throwError(() => {
-                        return new Error("Couldn't clear expression")
-;                    })
-                }),
+                        return new Error("Couldn't clear expression");
+                    });
+                })
+            );
+
+        this.build$ = (expression: Expression) =>
+            <Observable<CustomResponse>>(
+                this.http
+                    .post<CustomResponse>(`${this.API_URL}/build`, expression)
+                    .pipe(
+                        catchError(() => {
+                            return throwError(() => {
+                                return new Error("Couldn't build expression");
+                            });
+                        })
+                    )
             );
     }
 
-    build$ = (expression: Expression) =>
-        <Observable<CustomResponse>>(
-            this.http
-                .post<CustomResponse>(`${this.API_URL}/build`, expression)
-                .pipe(
-                    catchError(() => {
-                        return throwError(() => {
-                            return new Error("Couldn't build expression")
-    ;                    })
-                    }),
-                )
-        );
+    getExpression() {
+        return this.expression$;
+    }
+
+    solveExpression() {
+        return this.solve$;
+    }
+
+    clearExpression() {
+        return this.clear$;
+    }
 
     buildExpression(expression: Expression) {
         this.build$(expression).subscribe();

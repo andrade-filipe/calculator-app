@@ -4,7 +4,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
     templateUrl: './pad.component.html',
     styleUrls: ['./pad.component.css'],
 })
-export class PadComponent {
+export class PadComponent{
+
     @Output() clickedPad = new EventEmitter<string>();
 
     padDigits: Map<string, string> = new Map([

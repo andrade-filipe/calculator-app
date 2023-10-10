@@ -53,11 +53,11 @@ export class DisplayComponent implements OnInit, OnChanges {
 
     buildExpression(buildThis: Expression): void {
         this.currExpression = buildThis.expression;
-        this.calculatorService.build$(buildThis).subscribe();
+        this.calculatorService.buildExpression(buildThis);
     }
 
     getExpression() {
-        this.expression$ = this.calculatorService.expression$.pipe(
+        this.expression$ = this.calculatorService.getExpression().pipe(
             map((response) => {
                 return response.data.expression;
             }),
@@ -72,7 +72,7 @@ export class DisplayComponent implements OnInit, OnChanges {
 
     solveExpression() {
         if (this.checkExpression(this.expression.expression)){
-            this.calculatorService.solve$
+            this.calculatorService.solveExpression()
             .pipe(
                 map((solved) => {
                     this.onKey(solved.data.expression);
@@ -92,7 +92,7 @@ export class DisplayComponent implements OnInit, OnChanges {
 
     clearExpression() {
         this.onKey('');
-        this.calculatorService.clear$
+        this.calculatorService.clearExpression()
             .pipe(
                 catchError((err) => {
                     throwError(() => {
