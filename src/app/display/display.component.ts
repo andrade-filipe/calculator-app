@@ -15,7 +15,7 @@ export class DisplayComponent implements OnInit, OnChanges {
 
     expression!: Expression;
 
-    currExpression: string | undefined;
+    currExpression!: string | undefined;
 
     constructor(private calculatorService: CalculatorService) {}
 
@@ -42,7 +42,6 @@ export class DisplayComponent implements OnInit, OnChanges {
     }
 
     onKey(value: string | undefined) {
-        value?.trim();
         this.expression = { expression: value };
         if (this.expression.expression != '') {
             this.buildExpression(this.expression);
@@ -59,7 +58,7 @@ export class DisplayComponent implements OnInit, OnChanges {
     getExpression() {
         this.expression$ = this.calculatorService.getExpression().pipe(
             map((response) => {
-                return response.data.expression;
+                return response.data.expression?.trim();
             }),
             catchError((err) => {
                 throwError(() => {
@@ -71,28 +70,30 @@ export class DisplayComponent implements OnInit, OnChanges {
     }
 
     solveExpression() {
-        if (this.checkExpression(this.expression.expression)){
-            this.calculatorService.solveExpression()
-            .pipe(
-                map((solved) => {
-                    this.onKey(solved.data.expression);
-                }),
-                catchError((err) => {
-                    throwError(() => {
-                        return err;
-                    });
-                    return of();
-                })
-            )
-            .subscribe();
+        if (this.checkExpression(this.expression.expression)) {
+            this.calculatorService
+                .solveExpression()
+                .pipe(
+                    map((solved) => {
+                        this.onKey(solved.data.expression);
+                    }),
+                    catchError((err) => {
+                        throwError(() => {
+                            return err;
+                        });
+                        return of();
+                    })
+                )
+                .subscribe();
         } else {
-            throw new Error("Invalid Expression");
+            throw new Error('Invalid Expression');
         }
     }
 
     clearExpression() {
         this.onKey('');
-        this.calculatorService.clearExpression()
+        this.calculatorService
+            .clearExpression()
             .pipe(
                 catchError((err) => {
                     throwError(() => {
@@ -105,10 +106,12 @@ export class DisplayComponent implements OnInit, OnChanges {
     }
 
     checkExpression(expression: string | undefined): boolean {
-        if(expression?.includes("%%") ||
-            expression?.includes("//") ||
-            expression?.includes("()") ||
-            expression?.includes("**")){
+        if (
+            expression?.includes('%%') ||
+            expression?.includes('//') ||
+            expression?.includes('()') ||
+            expression?.includes('**')
+        ) {
             return false;
         }
         return true;

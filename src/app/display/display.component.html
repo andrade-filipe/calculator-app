@@ -1,7 +1,8 @@
 <div class="display__container | container text-center">
     <div class="display__row center | row align-items-center">
         <input
-            class="display-info bottom-right"
+            class="display-info bottom-right error-message-toggle"
+
             type="text"
             #display
             (keyup)="onKey(display.value)"
@@ -10,3 +11,9 @@
         />
     </div>
 </div>
+
+<!--
+    To make the input red on error
+    [class.red]=""
+    [class.normal]=""
+-->

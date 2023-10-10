@@ -188,12 +188,16 @@ DISPLAY
     min-height: 4rem;
 }
 
-.error-message {
+/*ERROR*/
+.error-message-toggle {}
+
+.error-message-toggle.red {
     background-color: var(--clr-error);
-    color: var(--clr-accent);
-    padding: 1rem 0;
 }
 
+.error-message-toggle.normal {
+    background-color: transparent;
+}
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
