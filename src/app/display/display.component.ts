@@ -20,25 +20,21 @@ export class DisplayComponent implements OnInit, OnChanges {
     constructor(private calculatorService: CalculatorService) {}
 
     ngOnInit(): void {
+        this.currExpression = '';
         this.getExpression();
     }
 
     ngOnChanges(): void {
-        if (this.clickedReceptor != undefined) {
+        if (this.clickedReceptor != undefined && this.currExpression!= undefined) {
             if (this.clickedReceptor.startsWith('c', 0)) {
                 this.clearExpression();
             } else if (this.clickedReceptor.startsWith('s', 0)) {
                 this.solveExpression();
             } else {
-                if (this.currExpression == undefined) {
-                    this.currExpression = '';
-                }
-                this.onKey(
-                    this.currExpression + this.clickedReceptor.charAt(0)
-                );
+                this.onKey(this.currExpression + this.clickedReceptor.charAt(0));
             }
+            this.getExpression();
         }
-        this.getExpression();
     }
 
     onKey(value: string | undefined) {
@@ -46,19 +42,18 @@ export class DisplayComponent implements OnInit, OnChanges {
         if (this.expression.expression != '') {
             this.buildExpression(this.expression);
         } else {
-            this.currExpression = '';
+            this.currExpression = value;
         }
     }
 
     buildExpression(buildThis: Expression): void {
-        this.currExpression = buildThis.expression;
         this.calculatorService.buildExpression(buildThis);
     }
 
     getExpression() {
-        this.expression$ = this.calculatorService.getExpression().pipe(
+        this.calculatorService.getExpression().pipe(
             map((response) => {
-                return response.data.expression?.trim();
+                this.currExpression = response.data.expression;
             }),
             catchError((err) => {
                 throwError(() => {
@@ -66,7 +61,7 @@ export class DisplayComponent implements OnInit, OnChanges {
                 });
                 return of();
             })
-        );
+        ).subscribe();
     }
 
     solveExpression() {
@@ -101,8 +96,7 @@ export class DisplayComponent implements OnInit, OnChanges {
                     });
                     return of();
                 })
-            )
-            .subscribe();
+            ).subscribe();
     }
 
     checkExpression(expression: string | undefined): boolean {

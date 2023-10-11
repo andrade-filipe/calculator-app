@@ -2,11 +2,10 @@
     <div class="display__row center | row align-items-center">
         <input
             class="display-info bottom-right error-message-toggle"
-
             type="text"
             #display
             (keyup)="onKey(display.value)"
-            value="{{ expression$ | async }}"
+            value="{{ currExpression }}"
             placeholder="0"
         />
     </div>
