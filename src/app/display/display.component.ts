@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
-import { Observable, catchError, map, of, throwError } from 'rxjs';
+import { catchError, map, of, take, throwError } from 'rxjs';
 import { Expression } from '../interfaces/expression';
 
 @Component({
@@ -10,8 +10,6 @@ import { Expression } from '../interfaces/expression';
 })
 export class DisplayComponent implements OnInit, OnChanges {
     @Input() clickedReceptor!: string;
-
-    expression$!: Observable<string | undefined>;
 
     expression!: Expression;
 
@@ -25,13 +23,18 @@ export class DisplayComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(): void {
-        if (this.clickedReceptor != undefined && this.currExpression!= undefined) {
+        if (
+            this.clickedReceptor != undefined &&
+            this.currExpression != undefined
+        ) {
             if (this.clickedReceptor.startsWith('c', 0)) {
                 this.clearExpression();
             } else if (this.clickedReceptor.startsWith('s', 0)) {
                 this.solveExpression();
             } else {
-                this.onKey(this.currExpression + this.clickedReceptor.charAt(0));
+                this.onKey(
+                    this.currExpression + this.clickedReceptor.charAt(0)
+                );
             }
             this.getExpression();
         }
@@ -51,27 +54,29 @@ export class DisplayComponent implements OnInit, OnChanges {
     }
 
     getExpression() {
-        this.calculatorService.getExpression().pipe(
-            map((response) => {
-                this.currExpression = response.data.expression;
-            }),
-            catchError((err) => {
-                throwError(() => {
-                    return err;
-                });
-                return of();
-            })
-        ).subscribe();
+        this.calculatorService
+            .getExpression()
+            .pipe(
+                map((response) => {
+                    this.currExpression = response.data.expression;
+                }),
+                take(1),
+                catchError((err) => {
+                    throwError(() => {
+                        return err;
+                    });
+                    return of();
+                })
+            )
+            .subscribe();
     }
 
     solveExpression() {
-        if (this.checkExpression(this.expression.expression)) {
+        if (this.checkExpression(this.currExpression)) {
             this.calculatorService
                 .solveExpression()
                 .pipe(
-                    map((solved) => {
-                        this.onKey(solved.data.expression);
-                    }),
+                    take(1),
                     catchError((err) => {
                         throwError(() => {
                             return err;
@@ -90,13 +95,15 @@ export class DisplayComponent implements OnInit, OnChanges {
         this.calculatorService
             .clearExpression()
             .pipe(
+                take(1),
                 catchError((err) => {
                     throwError(() => {
                         return err;
                     });
                     return of();
                 })
-            ).subscribe();
+            )
+            .subscribe();
     }
 
     checkExpression(expression: string | undefined): boolean {
