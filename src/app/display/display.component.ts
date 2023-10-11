@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { CalculatorService } from '../services/calculator-service/calculator.service';
-import { catchError, map, of, take, throwError } from 'rxjs';
+import { Observable, catchError, map, of, take, throwError } from 'rxjs';
 import { Expression } from '../interfaces/expression';
 
 @Component({
@@ -10,6 +10,8 @@ import { Expression } from '../interfaces/expression';
 })
 export class DisplayComponent implements OnInit, OnChanges {
     @Input() clickedReceptor!: string;
+
+    expression$ !: Observable<string | undefined>;
 
     expression!: Expression;
 
@@ -54,11 +56,12 @@ export class DisplayComponent implements OnInit, OnChanges {
     }
 
     getExpression() {
-        this.calculatorService
+        this.expression$ = this.calculatorService
             .getExpression()
             .pipe(
-                map((response) => {
-                    this.currExpression = response.data.expression;
+                map((expression) => {
+                    this.currExpression = expression.data.expression;
+                    return expression.data.expression;
                 }),
                 take(1),
                 catchError((err) => {
@@ -67,8 +70,7 @@ export class DisplayComponent implements OnInit, OnChanges {
                     });
                     return of();
                 })
-            )
-            .subscribe();
+            );
     }
 
     solveExpression() {

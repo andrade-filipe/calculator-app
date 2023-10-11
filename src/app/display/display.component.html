@@ -5,7 +5,7 @@
             type="text"
             #display
             (keyup)="onKey(display.value)"
-            value="{{ currExpression }}"
+            value="{{ expression$ | async }}"
             placeholder="0"
         />
     </div>

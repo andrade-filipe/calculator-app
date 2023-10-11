@@ -26,5 +26,6 @@ export class CustomErrorHandler implements ErrorHandler {
             );
         }
     })
+    console.warn(error);
   }
 }
