@@ -4,7 +4,7 @@
             class="display-info bottom-right error-message-toggle"
             type="text"
             #display
-            (keyup)="onKey(display.value)"
+            (keyup)="expressionFromDisplay(display.value)"
             value="{{ expression$ | async }}"
             placeholder="0"
         />
