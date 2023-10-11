@@ -1,34 +1,32 @@
 import { CalculatorService } from './../services/calculator-service/calculator.service';
-import { Component } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription, share, switchMap } from 'rxjs';
+import { CustomResponse } from '../interfaces/custom-response';
 
 @Component({
     selector: 'app-calculator',
     templateUrl: './calculator.component.html',
     styleUrls: ['./calculator.component.css'],
 })
-export class CalculatorComponent {
-
+export class CalculatorComponent implements OnInit {
     constructor(private calculatorService: CalculatorService) {}
 
-    expression$ !: Observable<string>
+    private subscription !: Subscription;
 
-    inputExpression: string = '';
+    private expression$!: Observable<CustomResponse>;
 
-    clickedEvent(event: string) {
-        if (event == 'clear'){
-            this.calculatorService.clearExpression();
-        } else if (event == 'solve') {
-            this.calculatorService.solveExpression();
-        }
-        this.inputExpression += event;
+    inputExpression$!: Observable<string>;
+
+    ngOnInit(): void {
+        this.expression$ = this.calculatorService.getExpression();
+        this.inputExpression$ = this.expression$.pipe(
+            switchMap((expression) => {
+                return expression.data.expression;
+            }), share()
+        );
     }
 
-    fromDisplay(event: string){
-        this.inputExpression = event;
-    }
-
-    checkExpression(expression: string | undefined): boolean {
+    checkExpression(expression: string): boolean {
         if (
             expression?.includes('%%') ||
             expression?.includes('//') ||
@@ -39,6 +37,19 @@ export class CalculatorComponent {
             return false;
         }
         return true;
+    }
+
+    /*DISPLAY INTERACTION */
+    clickedEvent(event: string) {
+        if (event == 'clear') {
+            this.subscription = this.calculatorService.clearExpression().subscribe();
+        } else if (event == 'solve') {
+            this.subscription = this.calculatorService.solveExpression().subscribe();
+        } else {
+        }
+    }
+
+    fromDisplay(event: string) {
     }
 }
 
@@ -82,5 +93,5 @@ export function Observe<T>(observedKey: string): PropertyDecorator {
                 getSubject(this)?.next(instanceNewValue);
             },
         });
-    }
+    };
 }
