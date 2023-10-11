@@ -1,7 +1,7 @@
 <div class="container text-center">
     <div class="row">
         <div class="col-12">
-            <app-display [clickedReceptor]="clickedVar"></app-display>
+            <app-display (fromDisplay)="fromDisplay($event)" [expression]="inputExpression"></app-display>
         </div>
     </div>
     <div class="row">

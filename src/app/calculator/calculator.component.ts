@@ -1,3 +1,4 @@
+import { CalculatorService } from './../services/calculator-service/calculator.service';
 import { Component } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
@@ -7,10 +8,24 @@ import { BehaviorSubject, Observable } from 'rxjs';
     styleUrls: ['./calculator.component.css'],
 })
 export class CalculatorComponent {
-    clickedVar !: string;
+
+    constructor(private calculatorService: CalculatorService) {}
+
+    expression$ !: Observable<string>
+
+    inputExpression: string = '';
 
     clickedEvent(event: string) {
-        this.clickedVar = event;
+        if (event == 'clear'){
+            this.calculatorService.clearExpression();
+        } else if (event == 'solve') {
+            this.calculatorService.solveExpression();
+        }
+        this.inputExpression += event;
+    }
+
+    fromDisplay(event: string){
+        this.inputExpression = event;
     }
 
     checkExpression(expression: string | undefined): boolean {

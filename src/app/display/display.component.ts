@@ -1,7 +1,4 @@
-import { Component } from '@angular/core';
-import {
-    Observable,
-} from 'rxjs';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
     selector: 'app-display',
@@ -9,8 +6,11 @@ import {
     styleUrls: ['./display.component.css'],
 })
 export class DisplayComponent {
+    @Input() expression: string = '';
 
-    expression$ !: Observable<string>;
+    @Output() fromDisplay = new EventEmitter<string>();
 
-    expressionFromDisplay(expression: string) {}
+    expressionFromDisplay(expression: string) {
+        this.fromDisplay.emit(expression);
+    }
 }

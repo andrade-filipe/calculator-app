@@ -31,13 +31,11 @@ export class PadComponent{
         ['clear', 'clear'],
     ]);
 
-    change = 0;
     expressionParser(digit: string): void {
         let clicked = this.padDigits.get(digit);
 
         if (clicked != undefined) {
-            this.clickedPad.emit(`${clicked + this.change}`);
-            this.change++;
+            this.clickedPad.emit(clicked);
         }
     }
 }
