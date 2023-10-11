@@ -23,8 +23,8 @@
 
 ## Update
 <p>Permit the user to type the expression through the keyboard (not just the virtual one) and correctly send to the API ✔️</p>
-<p>Permit the user to solve the expression pressing Enter key</p>
+<p>Permit the user to solve the expression pressing Enter key 🔴</p>
 
 ## Bug
-<p>--> Sometimes <-- you have to click 2 times to clear, solve, or digit through the virtual pad</p>
+<p>--> Sometimes <-- you have to click 2 times to clear, solve, or digit through the virtual pad 🔴</p>
 
