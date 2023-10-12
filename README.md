@@ -26,4 +26,5 @@
 
 ## Bug
 <p>--> Sometimes <-- you have to click 2 times to clear, solve, or digit through the virtual pad ✔️(Solved)</p>
+<p>the requests where being done out of order, so the user would experience some rollback, or wrong value displayed, that's solved ✔️</p>
 
