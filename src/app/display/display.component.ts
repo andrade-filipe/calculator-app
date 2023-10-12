@@ -10,7 +10,13 @@ export class DisplayComponent {
 
     @Output() fromDisplay = new EventEmitter<string>();
 
+    @Output() enterEventEmitter = new EventEmitter<any>();
+
     expressionFromDisplay(expression: string) {
         this.fromDisplay.emit(expression);
+    }
+
+    enterEvent(event: any) {
+        this.enterEventEmitter.emit(event);
     }
 }

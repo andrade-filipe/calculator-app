@@ -1,5 +1,5 @@
 import { CalculatorService } from './../services/calculator-service/calculator.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { throwError } from 'rxjs';
 import { Expression } from '../interfaces/expression';
 
@@ -9,6 +9,7 @@ import { Expression } from '../interfaces/expression';
     styleUrls: ['./calculator.component.css'],
 })
 export class CalculatorComponent implements OnInit {
+
     constructor(private calculatorService: CalculatorService) {}
 
     displayExpression!: string;
@@ -86,5 +87,9 @@ export class CalculatorComponent implements OnInit {
             return false;
         }
         return true;
+    }
+
+    enterEvent(event: any) {
+        this.clickedEvent('solve');
     }
 }

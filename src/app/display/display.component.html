@@ -5,6 +5,7 @@
             type="text"
             #display
             (keyup)="expressionFromDisplay(display.value)"
+            (keydown.enter)="enterEvent($event)"
             value="{{ expression }}"
             placeholder="0"
         />
