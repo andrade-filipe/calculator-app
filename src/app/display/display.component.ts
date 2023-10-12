@@ -12,8 +12,8 @@ export class DisplayComponent {
 
     @Output() enterEventEmitter = new EventEmitter<any>();
 
-    expressionFromDisplay(expression: string) {
-        this.fromDisplay.emit(expression);
+    expressionFromDisplay(display: string) {
+        this.fromDisplay.emit(display);
     }
 
     enterEvent(event: any) {

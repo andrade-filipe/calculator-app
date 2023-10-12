@@ -1,5 +1,5 @@
 import { CalculatorService } from './../services/calculator-service/calculator.service';
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { throwError } from 'rxjs';
 import { Expression } from '../interfaces/expression';
 
@@ -66,7 +66,7 @@ export class CalculatorComponent implements OnInit {
     }
 
     private buildExpression(): void {
-        console.log("build")
+        this.displayExpression.trim();
         let expression: Expression = { expression: this.displayExpression };
         this.calculatorService.buildExpression(expression).subscribe({
             error: (err) =>
