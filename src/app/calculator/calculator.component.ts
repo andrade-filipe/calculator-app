@@ -18,7 +18,11 @@ export class CalculatorComponent implements OnInit {
         this.displayExpression = '';
     }
 
-    clickedEvent(event: string) {
+    /**
+     * process all data coming from the PadComponent
+     * @param event
+     */
+    fromPad(event: string) {
         if (event == 'clear') {
             this.clearExpression();
         } else if (event == 'solve') {
@@ -32,10 +36,17 @@ export class CalculatorComponent implements OnInit {
         }
     }
 
+    /**
+     * process data coming from the input on DisplayComponent
+     * @param event
+     */
     fromDisplay(event: string) {
         this.displayExpression = event;
     }
 
+    /**
+     * Perform the subscription to getExpression from Service that sends to the API
+     */
     private getExpression(): void {
         if(this.displayExpression != ""){
             this.calculatorService.getExpression().subscribe({
@@ -49,6 +60,9 @@ export class CalculatorComponent implements OnInit {
         }
     }
 
+    /**
+     * Perform the subscription to clearExpression from Service that sends to the API
+     */
     private clearExpression(): void {
         this.calculatorService.clearExpression().subscribe({
             error: (err) =>
@@ -57,6 +71,9 @@ export class CalculatorComponent implements OnInit {
         });
     }
 
+    /**
+     * Perform the subscription to solveExpression from Service that sends to the API
+     */
     private solveExpression(): void {
         this.calculatorService.solveExpression().subscribe({
             error: (err) =>
@@ -65,6 +82,9 @@ export class CalculatorComponent implements OnInit {
         });
     }
 
+    /**
+     * Perform the subscription to buildExpression from Service that sends to the API
+     */
     private buildExpression(): void {
         this.displayExpression.trim();
         let expression: Expression = { expression: this.displayExpression };
@@ -75,6 +95,11 @@ export class CalculatorComponent implements OnInit {
         });
     }
 
+    /**
+     * checks some conditions in order to guarantee it's not a invalid expression
+     * @param expression
+     * @returns if is a valid expression without invalid chars
+     */
     private checkExpression(expression: string): boolean {
         if (
             expression?.includes('%%') ||
@@ -89,7 +114,11 @@ export class CalculatorComponent implements OnInit {
         return true;
     }
 
+    /**
+     * captures when te user press Enter on the keyboard using the input box inside DisplayComponent
+     * @param event
+     */
     enterEvent(event: any) {
-        this.clickedEvent('solve');
+        this.fromPad('solve');
     }
 }
