@@ -1,7 +1,7 @@
 import { CalculatorService } from './../services/calculator-service/calculator.service';
 import { Component, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription, share, switchMap } from 'rxjs';
-import { CustomResponse } from '../interfaces/custom-response';
+import { throwError } from 'rxjs';
+import { Expression } from '../interfaces/expression';
 
 @Component({
     selector: 'app-calculator',
@@ -11,87 +11,80 @@ import { CustomResponse } from '../interfaces/custom-response';
 export class CalculatorComponent implements OnInit {
     constructor(private calculatorService: CalculatorService) {}
 
-    private subscription !: Subscription;
-
-    private expression$!: Observable<CustomResponse>;
-
-    inputExpression$!: Observable<string>;
+    displayExpression!: string;
 
     ngOnInit(): void {
-        this.expression$ = this.calculatorService.getExpression();
-        this.inputExpression$ = this.expression$.pipe(
-            switchMap((expression) => {
-                return expression.data.expression;
-            }), share()
-        );
+        this.displayExpression = '';
     }
 
-    checkExpression(expression: string): boolean {
+    clickedEvent(event: string) {
+        if (event == 'clear') {
+            this.clearExpression();
+        } else if (event == 'solve') {
+            if (this.checkExpression(this.displayExpression)) {
+                this.buildExpression();
+            } else {
+                throw new Error('Invalid Expression');
+            }
+        } else {
+            this.fromDisplay(this.displayExpression + event);
+        }
+    }
+
+    fromDisplay(event: string) {
+        this.displayExpression = event;
+    }
+
+    private getExpression(): void {
+        if(this.displayExpression != ""){
+            this.calculatorService.getExpression().subscribe({
+                next: value => this.displayExpression = value.data.expression,
+                error: (err) =>
+                throwError(() => new Error("couldn't get expression")),
+                complete: () => {}
+            });
+        } else {
+            throw new Error("couldn't get expression");
+        }
+    }
+
+    private clearExpression(): void {
+        this.calculatorService.clearExpression().subscribe({
+            error: (err) =>
+                throwError(() => new Error("couldn't clear expression")),
+            complete: () => {this.getExpression()},
+        });
+    }
+
+    private solveExpression(): void {
+        this.calculatorService.solveExpression().subscribe({
+            error: (err) =>
+                throwError(() => new Error("couldn't solve Expression")),
+            complete: () => {this.getExpression()},
+        });
+    }
+
+    private buildExpression(): void {
+        console.log("build")
+        let expression: Expression = { expression: this.displayExpression };
+        this.calculatorService.buildExpression(expression).subscribe({
+            error: (err) =>
+                throwError(() => new Error("Couldn't build expression")),
+            complete: () => {this.solveExpression()},
+        });
+    }
+
+    private checkExpression(expression: string): boolean {
         if (
             expression?.includes('%%') ||
             expression?.includes('//') ||
             expression?.includes('()') ||
             expression?.includes('**') ||
-            expression?.match(new RegExp('[a-zA-z]'))
+            expression?.match(new RegExp('[a-zA-z]')) ||
+            expression == ''
         ) {
             return false;
         }
         return true;
     }
-
-    /*DISPLAY INTERACTION */
-    clickedEvent(event: string) {
-        if (event == 'clear') {
-            this.subscription = this.calculatorService.clearExpression().subscribe();
-        } else if (event == 'solve') {
-            this.subscription = this.calculatorService.solveExpression().subscribe();
-        } else {
-        }
-    }
-
-    fromDisplay(event: string) {
-    }
-}
-
-export function Observe<T>(observedKey: string): PropertyDecorator {
-    // `target` defines the target class prototype that the property decorator
-    // is attached to.
-    return (target: any, key: string | symbol): void => {
-        // Declare all the active subjects for a given target class instance.
-        const subjects = new WeakMap<any, BehaviorSubject<T | undefined>>();
-
-        // Return the associated subject for a given target class instance.
-        // In case none is available yet, create one.
-        const getSubject = (
-            instance: any
-        ): BehaviorSubject<T | undefined> | undefined => {
-            if (!subjects.has(instance)) {
-                subjects.set(
-                    instance,
-                    new BehaviorSubject<T | undefined>(undefined)
-                );
-            }
-            return subjects.get(instance);
-        };
-
-        // Transform the decorated property into an `Observable` that propagates
-        // the changes of the internal subject.
-        Object.defineProperty(target, key, {
-            get(): Observable<T | undefined> | undefined {
-                // `this` is the current instance of the class
-                return getSubject(this);
-            },
-        });
-
-        // Transform the definition of the observed property so that we can propagate
-        // its value changes to the internal subject.
-        Object.defineProperty(target, observedKey, {
-            get(): T | undefined {
-                return getSubject(this)?.getValue();
-            },
-            set(instanceNewValue: T): void {
-                getSubject(this)?.next(instanceNewValue);
-            },
-        });
-    };
 }
