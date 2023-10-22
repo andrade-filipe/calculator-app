@@ -50,7 +50,7 @@ export class CalculatorComponent implements OnInit {
     private getExpression(): void {
         if(this.displayExpression != ""){
             this.calculatorService.getExpression().subscribe({
-                next: value => this.displayExpression = value.data.expression,
+                next: value => this.displayExpression = value.expression,
                 error: (err) =>
                 throwError(() => new Error("couldn't get expression")),
                 complete: () => {}
@@ -77,7 +77,7 @@ export class CalculatorComponent implements OnInit {
     private solveExpression(): void {
         this.calculatorService.solveExpression().subscribe({
             error: (err) =>
-                throwError(() => new Error("couldn't solve Expression")),
+                throwError(() => new Error("Couldn't solve Expression")),
             complete: () => {this.getExpression()},
         });
     }
