@@ -1,3 +1,3 @@
 export interface CustomResponse {
-    expression : string;
+    expression: string;
 }

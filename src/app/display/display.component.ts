@@ -6,7 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
     styleUrls: ['./display.component.css'],
 })
 export class DisplayComponent {
-    @Input() expression !: string;
+    @Input() expression!: string;
 
     @Output() fromDisplay = new EventEmitter<string>();
 

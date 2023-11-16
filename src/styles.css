@@ -159,7 +159,6 @@ PAD
     background-color: var(--clr-primary);
 }
 
-
 /*-------------------------------------
 DISPLAY
 ---------------------------------------*/
@@ -189,7 +188,8 @@ DISPLAY
 }
 
 /*ERROR*/
-.error-message-toggle {}
+.error-message-toggle {
+}
 
 .error-message-toggle.red {
     background-color: var(--clr-error);
@@ -199,5 +199,11 @@ DISPLAY
     background-color: transparent;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100%;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}

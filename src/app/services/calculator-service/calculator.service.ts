@@ -18,10 +18,7 @@ export class CalculatorService {
         }),
     };
 
-    constructor(
-        private http: HttpClient,
-        @Inject(APP_SERVICE_CONFIG) private config: AppConfig
-    ) {}
+    constructor(private http: HttpClient, @Inject(APP_SERVICE_CONFIG) private config: AppConfig) {}
 
     getExpression(): Observable<CustomResponse> {
         return this.http.get<CustomResponse>(`${this.API_URL}/expression`);
@@ -31,11 +28,15 @@ export class CalculatorService {
         return this.http.get<CustomResponse>(`${this.API_URL}/solve`);
     }
 
-    clearExpression(): Observable<CustomResponse>{
+    clearExpression(): Observable<CustomResponse> {
         return this.http.get<CustomResponse>(`${this.API_URL}/clear`);
     }
 
     buildExpression(expression: Expression) {
-        return this.http.post<CustomResponse>(`${this.API_URL}/build`, expression, this.httpOptions);
+        return this.http.post<CustomResponse>(
+            `${this.API_URL}/build`,
+            expression,
+            this.httpOptions
+        );
     }
 }

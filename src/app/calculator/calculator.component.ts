@@ -9,7 +9,6 @@ import { Expression } from '../interfaces/expression';
     styleUrls: ['./calculator.component.css'],
 })
 export class CalculatorComponent implements OnInit {
-
     constructor(private calculatorService: CalculatorService) {}
 
     displayExpression!: string;
@@ -48,12 +47,11 @@ export class CalculatorComponent implements OnInit {
      * Perform the subscription to getExpression from Service that sends to the API
      */
     private getExpression(): void {
-        if(this.displayExpression != ""){
+        if (this.displayExpression != '') {
             this.calculatorService.getExpression().subscribe({
-                next: value => this.displayExpression = value.expression,
-                error: (err) =>
-                throwError(() => new Error("couldn't get expression")),
-                complete: () => {}
+                next: (value) => (this.displayExpression = value.expression),
+                error: (err) => throwError(() => new Error("couldn't get expression")),
+                complete: () => {},
             });
         } else {
             throw new Error("couldn't get expression");
@@ -65,9 +63,10 @@ export class CalculatorComponent implements OnInit {
      */
     private clearExpression(): void {
         this.calculatorService.clearExpression().subscribe({
-            error: (err) =>
-                throwError(() => new Error("couldn't clear expression")),
-            complete: () => {this.getExpression()},
+            error: (err) => throwError(() => new Error("couldn't clear expression")),
+            complete: () => {
+                this.getExpression();
+            },
         });
     }
 
@@ -76,9 +75,10 @@ export class CalculatorComponent implements OnInit {
      */
     private solveExpression(): void {
         this.calculatorService.solveExpression().subscribe({
-            error: (err) =>
-                throwError(() => new Error("Couldn't solve Expression")),
-            complete: () => {this.getExpression()},
+            error: (err) => throwError(() => new Error("Couldn't solve Expression")),
+            complete: () => {
+                this.getExpression();
+            },
         });
     }
 
@@ -89,9 +89,10 @@ export class CalculatorComponent implements OnInit {
         this.displayExpression.trim();
         let expression: Expression = { expression: this.displayExpression };
         this.calculatorService.buildExpression(expression).subscribe({
-            error: (err) =>
-                throwError(() => new Error("Couldn't build expression")),
-            complete: () => {this.solveExpression()},
+            error: (err) => throwError(() => new Error("Couldn't build expression")),
+            complete: () => {
+                this.solveExpression();
+            },
         });
     }
 
