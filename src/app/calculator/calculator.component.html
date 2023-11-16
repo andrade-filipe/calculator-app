@@ -3,7 +3,7 @@
         <div class="col-12">
             <app-display
                 (fromDisplay)="fromDisplay($event)"
-                (enterEventEmitter)="enterEvent($event)"
+                (enterEventEmitter)="buildExpression()"
                 [expression]="displayExpression"
             ></app-display>
         </div>

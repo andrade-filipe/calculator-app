@@ -85,7 +85,7 @@ export class CalculatorComponent implements OnInit {
     /**
      * Perform the subscription to buildExpression from Service that sends to the API
      */
-    private buildExpression(): void {
+    public buildExpression(): void {
         this.displayExpression.trim();
         let expression: Expression = { expression: this.displayExpression };
         this.calculatorService.buildExpression(expression).subscribe({
