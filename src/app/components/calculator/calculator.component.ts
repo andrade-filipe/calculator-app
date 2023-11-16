@@ -1,7 +1,7 @@
-import { CalculatorService } from './../services/calculator-service/calculator.service';
+import { CalculatorService } from '../../services/calculator-service/calculator.service';
 import { Component, OnInit } from '@angular/core';
 import { throwError } from 'rxjs';
-import { Expression } from '../interfaces/expression';
+import { Expression } from '../../interfaces/expression';
 
 @Component({
     selector: 'app-calculator',
