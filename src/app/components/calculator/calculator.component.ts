@@ -87,13 +87,18 @@ export class CalculatorComponent implements OnInit {
      */
     public buildExpression(): void {
         this.displayExpression.trim();
-        let expression: Expression = { expression: this.displayExpression };
-        this.calculatorService.buildExpression(expression).subscribe({
-            error: (err) => throwError(() => new Error("Couldn't build expression")),
-            complete: () => {
-                this.solveExpression();
-            },
-        });
+        if(this.checkExpression(this.displayExpression)){
+            let expression: Expression = { expression: this.displayExpression };
+            this.calculatorService.buildExpression(expression).subscribe({
+                error: (err) => throwError(() => new Error("Couldn't build expression")),
+                complete: () => {
+                    this.solveExpression();
+                },
+            });
+        } else {
+            throw new Error('Invalid Expression');
+        }
+
     }
 
     /**
